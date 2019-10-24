@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>package 2</title>
+</head>
+
+<body>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AYIkgrjBUjvphlfPIosOTmnikfbveg35qwaSDPznzuy0m7pCuVoTYlyHHFJFcFVqyin6LoknQeleBDnh&vault=true">
+        </script>
+    <div>
+        <label for="fname">3 month package</label>
+        <input type="number" id="package1" placeholder="Your name..">
+
+        <button onClick="paypalApi()">add</button> </div>
+    <script>
+        function paypalApi() {
+            var numValue = document.getElementById("package1").value
+            console.log('paypal', numValue)
+            fetch("http://localhost:3000/create-plan", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    value: numValue
+                })
+            }).then((res) => res.json()).then((resp) => console.log(resp, 'ppp'))
+                .catch((err) => console.log(err))
+        }
+
+        paypal.Buttons({
+            createSubscription: function (data, actions) {
+
+                return actions.subscription.create({
+
+                    'plan_id': 'P-48862655EC9524847LWOF6GI'
+
+                });
+
+            },
+
+
+            onApprove: function (data, actions) {
+
+                alert('You have successfully created subscription ' + data.subscriptionID);
+
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+</body>
+
+</html>

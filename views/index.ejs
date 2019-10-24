@@ -1,42 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>package 1</title>
 </head>
 
 <body>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AYIkgrjBUjvphlfPIosOTmnikfbveg35qwaSDPznzuy0m7pCuVoTYlyHHFJFcFVqyin6LoknQeleBDnh&vault=true">
+        </script>
+    <div>
+        <label for="fname">1 month package</label>
+        <input type="number" id="package1" placeholder="Your name..">
+
+        <button onClick="paypalApi()">add</button>
+
+    </div>
+    <script>
+        var data;
+        var x;
+        // console.log(data)
+
+        function paypalApi() {
+            var numValue = document.getElementById("package1").value
+            console.log('paypal', numValue)
+            fetch("http://localhost:3000/get-plan", {
+                method: "GET",
+                // headers: {
+                //     "content-type": "application/json"
+                // },
+                // body: JSON.stringify({
+                //     value: numValue
+                // })
+            }).then((res) => res.json()).then((resp) => {
+                console.log(resp)
+                // return paypal.Buttons({
+                //     createSubscription: function (data, actions) {
+
+                //         return actions.subscription.create({
+
+                //             'plan_id': data.plan_id
+
+                //         });
+
+                //     },
 
 
-  <script
-       src="https://www.paypal.com/sdk/js?client-id=AYIkgrjBUjvphlfPIosOTmnikfbveg35qwaSDPznzuy0m7pCuVoTYlyHHFJFcFVqyin6LoknQeleBDnh&vault=true">
-</script>
-<div id="paypal-button-container"></div>
-<script>
-       paypal.Buttons({
+                //     onApprove: function (data, actions) {
 
-  createSubscription: function(data, actions) {
+                //         alert('You have successfully created subscription ' + data.subscriptionID);
 
-    return actions.subscription.create({
-
-      'plan_id': 'P-48862655EC9524847LWOF6GI'
-
-    });
-
-  },
+                //     }
 
 
-  onApprove: function(data, actions) {
+                // }).render('#paypal-button-container');
+            })
+                .catch((err) => console.log(err))
+        }
 
-    alert('You have successfully created subscription ' + data.subscriptionID);
+        // document.getElementById("para") = data.map((d) => {
+        //     console.log(d, 'd')
+        //     return <div>{d.plan_id}</div>
+        // })
 
-  }
+        // paypal.Buttons({
+        //     createSubscription: function (data, actions) {
+
+        //         return actions.subscription.create({
+
+        //             'plan_id': '11111111'
+
+        //         });
+
+        //     },
 
 
-        }).render('#paypal-button-container');
-  </script>
+        //     onApprove: function (data, actions) {
+
+        //         alert('You have successfully created subscription ' + data.subscriptionID);
+
+        //     }
 
 
+        // }).render('#paypal-button-container');
+        // function add(params) {
+        //     console.log(data, 'data')
+        //     return document.getElementById("para") = data.map((d) => {
+        //         console.log(d, 'd')
+        //         return <div>{d.plan_id}</div>
+        //     })
+        // }
+        // var Usrdata = document.querySelector('.box');
 
+    </script>
+
+    <div id="paypal-button-container"></div>
+    <!-- <button onclick="add()">add</button> -->
+    <div id="para"></div>
 </body>
+
 </html>
